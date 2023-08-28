@@ -13,7 +13,7 @@ app.use(express.static('public'));
 
 app.get('/api/notes', (req, res) => {
     res.sendFile(path.join(__dirname, './Develop/db/db.json'));
-    res.json(`${req.method} request received to get reviews`);
+
     console.info(`${req.method} request has been received to get notes`);
 
 })
