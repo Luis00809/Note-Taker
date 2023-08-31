@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const { v4: uuidv4 } = require('uuid');
 
 const PORT = 3001;
 const app = express();
@@ -11,15 +12,39 @@ app.use(express.urlencoded({ extended: true}));
 
 app.use(express.static('public'));
 
-app.get('/api/notes', (req, res) => {
-    res.sendFile(path.join(__dirname, './Develop/db/db.json'));
 
-    console.info(`${req.method} request has been received to get notes`);
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+    console.info(`${req.method} response received for index.html file`)
+})
+
+app.get('/notes', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/notes.html'));
+    console.info(`${req.method} request for notes.html received`);
 
 })
 
+app.get('/api/notes', (req, res) => {
+    
+    // directions say to make sure to return all saved notes as JSON
+    // to do so need to to the same method as POST 
+    // bc sendFile send the entire file rather than the content itself (we want that data);
+
+    fs.readFile(path.join('./db/db.json'),'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal Server Error' });
+            return;
+        } else {
+            const parsedNoteData = JSON.parse(data);
+            res.json(parsedNoteData);
+            console.info(`${req.method} request has been received to get notes`);
+        }
+    });
+})
+
 app.post('/api/notes', (req, res) => {
-    console.info(`${req.method} request received to add a review`);
+    console.info(`${req.method} request received to add a note`);
 
     const { title, text } = req.body;
 
@@ -27,11 +52,12 @@ app.post('/api/notes', (req, res) => {
         const newNote = {
             title, 
             text,
+            id: uuidv4(),
         };
 
         const noteString = JSON.stringify(newNote);
 
-        fs.readFile('./Develop/db/db.json', 'utf8', (err, data) => {
+        fs.readFile('./db/db.json', 'utf8', (err, data) => {
             if (err) {
                 console.error(err);
             } else {
@@ -39,7 +65,7 @@ app.post('/api/notes', (req, res) => {
                 parsedNote.push(newNote);
 
 
-                fs.writeFile('./Develop/db/db.json', JSON.stringify(parsedNote, null, 4), (err) => 
+                fs.writeFile('./db/db.json', JSON.stringify(parsedNote, null, 4), (err) => 
                     err
                     ? console.error(err)
                     : console.log(
@@ -59,9 +85,6 @@ app.post('/api/notes', (req, res) => {
           res.status(500).json('Error in posting review');
         }
 })
-
-
-
 
 
 app.listen(PORT, () => {
