@@ -28,5 +28,10 @@
         "title": "testtttttt",
         "text": "helllo",
         "id": "ef5fb849-6f30-4cde-9178-d7d6348c551a"
+    },
+    {
+        "title": "New Note",
+        "text": "will create a note",
+        "id": "80ea05e0-9777-42c1-854b-8c64e1bc3935"
     }
 ]
