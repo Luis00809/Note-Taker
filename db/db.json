@@ -1,37 +1,12 @@
 [
     {
-        "title": "Test Title",
-        "text": "Test text"
+        "title": "Delete me",
+        "text": "Please\n",
+        "id": "c64fcc94-56ed-43ec-aa9b-13572150ec31"
     },
     {
-        "title": "my note",
-        "text": "example run"
-    },
-    {
-        "title": "Note 2",
-        "text": "cool"
-    },
-    {
-        "title": "Note 3",
-        "text": "cool"
-    },
-    {
-        "title": "Note 4",
-        "text": "okay okay"
-    },
-    {
-        "title": "today",
-        "text": "Is Monday",
-        "id": "db242e59-da71-42df-a686-0021973de423"
-    },
-    {
-        "title": "testtttttt",
-        "text": "helllo",
-        "id": "ef5fb849-6f30-4cde-9178-d7d6348c551a"
-    },
-    {
-        "title": "New Note",
-        "text": "will create a note",
-        "id": "80ea05e0-9777-42c1-854b-8c64e1bc3935"
+        "title": "Today",
+        "text": "Finish assignment!",
+        "id": "5f8d67b1-8988-4e6e-9083-59dab12dad99"
     }
 ]
